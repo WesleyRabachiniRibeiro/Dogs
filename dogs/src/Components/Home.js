@@ -1,11 +1,12 @@
-import React from 'react'
+import React from "react";
+import Feed from "./Feed/Feed";
 
-function Home() {
+const Home = () => {
   return (
-    <div>
-      <p>Home</p>
-    </div>
-  )
-}
+    <section className="container mainContainer">
+      <Feed />
+    </section>
+  );
+};
 
-export default Home
+export default Home;

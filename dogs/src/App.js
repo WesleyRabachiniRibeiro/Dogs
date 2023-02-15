@@ -14,16 +14,18 @@ function App() {
       <BrowserRouter>
         <UserStorage>
           <Header />
-            <Routes>
-              <Route path="/" element={<Home />}/>
-              <Route path="/login/*" element={<Login />}/>
-              <Route path="/account/*" element={
-                  <ProtectedRoute>
-                    <User/>
-                  </ProtectedRoute>
-                }
-              />
-            </Routes>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="login/*" element={<Login />} />
+            <Route
+              path="account/*"
+              element={
+                <ProtectedRoute>
+                  <User />
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
           <Footer />
         </UserStorage>
       </BrowserRouter>

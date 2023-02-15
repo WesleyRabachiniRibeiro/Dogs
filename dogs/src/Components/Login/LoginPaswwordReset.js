@@ -1,11 +1,7 @@
-import React from 'react'
+import React from "react";
 
 function LoginPaswwordReset() {
-  return (
-    <div>
-      
-    </div>
-  )
+  return <div></div>;
 }
 
-export default LoginPaswwordReset
+export default LoginPaswwordReset;
