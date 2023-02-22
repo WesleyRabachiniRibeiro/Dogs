@@ -4,38 +4,44 @@ import Home from "./Components/Home";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "./Components/Login/Login";
 import "./App.css";
-import { UserStorage } from "./UserContext";
 import User from "./Components/User/User";
 import ProtectedRoute from "./Components/Helper/ProtectedRoute";
 import Photo from "./Components/Photo/Photo";
 import UserProfile from "./Components/User/UserProfile";
 import NotFound from "./NotFound";
+import { useDispatch } from "react-redux";
+import { autoLogin } from "./store/user";
+import React from "react";
 
 function App() {
+  const dispatch = useDispatch();
+  
+  React.useEffect(() => {
+    dispatch(autoLogin());
+  }, [dispatch]);
+
   return (
     <div className="App">
       <BrowserRouter>
-        <UserStorage>
-          <Header />
-          <main className="AppBody">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="login/*" element={<Login />} />
-              <Route
-                path="account/*"
-                element={
-                  <ProtectedRoute>
-                    <User />
-                  </ProtectedRoute>
-                }
-              />
-              <Route path="photo/:id" element={<Photo />} />
-              <Route path="profile/:user" element={<UserProfile />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </main>
-          <Footer />
-        </UserStorage>
+        <Header />
+        <main className="AppBody">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="login/*" element={<Login />} />
+            <Route
+              path="account/*"
+              element={
+                <ProtectedRoute>
+                  <User />
+                </ProtectedRoute>
+              }
+            />
+            <Route path="photo/:id" element={<Photo />} />
+            <Route path="profile/:user" element={<UserProfile />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </main>
+        <Footer />
       </BrowserRouter>
     </div>
   );

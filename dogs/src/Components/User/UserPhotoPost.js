@@ -3,19 +3,21 @@ import Input from "../Forms/Input";
 import Button from "../Forms/Button";
 import styles from "../User/UserPhotoPost.module.css";
 import useForm from "../../Hooks/useForm";
-import useFetch from "../../Hooks/useFetch";
 import Error from "../Helper/Error";
-import { PHOTO_POST } from "../../Api";
 import { useNavigate } from "react-router-dom";
 import Head from "../Helper/Head";
+import { useDispatch, useSelector } from "react-redux";
+import { photoPost } from "../../store/photoPost";
 
 function UserPhotoPost() {
   const name = useForm();
   const weight = useForm("number");
   const age = useForm("number");
   const [img, setImg] = React.useState({});
-  const { data, error, loading, request } = useFetch();
+  const { data, error, loading } = useSelector((state) => state.photoPost);
+  const { token } = useSelector((state) => state.token.data);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   React.useEffect(() => {
     if (data) navigate("/account");
@@ -28,10 +30,7 @@ function UserPhotoPost() {
     formData.append("nome", name.value);
     formData.append("peso", weight.value);
     formData.append("idade", age.value);
-
-    const token = window.localStorage.getItem("token");
-    const { url, options } = PHOTO_POST(formData, token);
-    request(url, options);
+    dispatch(photoPost({ formData, token }));
   };
 
   const handleImgChange = ({ target }) => {
